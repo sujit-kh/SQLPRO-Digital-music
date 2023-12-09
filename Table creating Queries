@@ -1,1 +1,192 @@
+create table album(album_id int8 PRIMARY KEY,
+    title character varying,
+    artist_id int8);
 
+COPY album(album_id, title, artist_id )
+FROM 'D:\Projects\music store data\album.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from album;
+----------------------------------------------------------------
+create table artist(artist_id int8 PRIMARY KEY,
+    name character varying);
+
+COPY artist(artist_id, name)
+FROM 'D:\Projects\music store data\artist.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from artist;
+----------------------------------------------------------------
+create table playlist(Playlist_id int8 PRIMARY KEY,
+    name character varying);
+
+COPY playlist(Playlist_id, name)
+FROM 'D:\Projects\music store data\playlist.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from playlist;
+----------------------------------------------------------------
+create table playlist_track(Playlist_id int8 PRIMARY KEY,
+    track_id int8, Foreign KEY);
+
+COPY playlist_track(Playlist_id, track_id)
+FROM 'D:\Projects\music store data\playlist_track.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from playlist_track;
+----------------------------------------------------------------
+create table media_type(media_type_id int8 PRIMARY KEY,
+    name character varying);
+
+COPY media_type(media_type_id, name)
+FROM 'D:\Projects\music store data\media_type.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from media_type;
+----------------------------------------------------------------
+create table genre(genre_id int8 PRIMARY KEY,
+    name character varying);
+select * from album;
+
+COPY genre(genre_id, name)
+FROM 'D:\Projects\music store data\genre.csv'
+DELIMITER ','
+CSV HEADER;
+----------------------------------------------------------------
+drop table track;
+create table track(track_id int8 PRIMARY KEY,
+                   name character varying,
+				   album_id int8,
+				   media_type_id int8,
+				   genre_id  int8,
+				   composer Varchar,
+				   milliseconds int8,
+				   bytes int8,
+				   unit_price Numeric(4,2));
+				   
+select * from track;
+
+COPY track(track_id, name, album_id, media_type_id,
+		   genre_id, composer, milliseconds, bytes,
+		   unit_price)
+FROM 'D:\Projects\music store data\track.csv'
+DELIMITER ','
+CSV HEADER;
+----------------------------------------------------------------
+create table invoice_line(invoice_line_id int8 Primary key,
+						 invoice_id int8,
+						 track_id int8,
+						 unit_price numeric(4,2),
+						 quantity int8);
+select * from invoice_line;
+
+COPY invoice_line(invoice_line_id,
+		    invoice_id,
+		   track_id,
+		   unit_price,
+		   quantity)
+FROM 'D:\Projects\music store data\invoice_line.csv'
+DELIMITER ','
+CSV HEADER;
+----------------------------------------------------------------
+DROP TABLE invoice;
+create table invoice(invoice_id int8 Primary key,
+					 customer_id int8,
+					 invoice_date DATE NOT NULL,
+					 billing_address varchar,
+					 billing_city character varying,
+					 billing_state character varying,
+					 billing_country character varying,
+					 billing_postal_code varchar,
+					 total Numeric(4,2));
+select * from invoice;
+
+COPY invoice(invoice_id,
+					 customer_id,
+					 invoice_date, 
+					 billing_address,
+					 billing_city,
+					 billing_state,
+					 billing_country,
+					 billing_postal_code,
+					 total )
+FROM 'D:\Projects\music store data\invoice.csv'
+DELIMITER ','
+CSV HEADER;
+-------------------------------------------------------------------
+Drop table customer;
+create table customer(customer_id int8 Primary key,
+					  first_name character varying,
+					  last_name character varying,
+					  company character varying,
+					  address character varying,
+					  city character varying,
+					  state character varying,
+					  country character varying,
+					  postal_code varchar,
+					  phone text,
+					  fax text,
+					  email varchar,
+					  support_rep_id int8);
+
+select * from customer;
+
+COPY customer(customer_id,
+					  first_name,
+					  last_name,
+					  company,
+					  address,
+					  city,
+					  state,
+					  country,
+					  postal_code,
+					  phone,
+					  fax,
+					  email,
+					  support_rep_id)
+FROM 'D:\Projects\music store data\customer.csv'
+DELIMITER ','
+CSV HEADER;
+-------------------------------------------------------------------
+drop table employee;
+create table employee(employee_id int8 primary key,
+					  last_name character varying,
+					  first_name character varying,
+					  title char(40),
+					  reports_to int8,
+					  levels varchar,
+					  birthdate DATE,
+					  hire_date DATE,
+					  address character varying,
+					  city character varying,
+					  state character varying,
+					  country character varying,
+					  postal_code varchar,
+					  phone text,
+					  fax text,
+					  email varchar);
+
+COPY employee(employee_id,
+					  last_name,
+					  first_name,
+					  title,
+					  reports_to,
+			  		  levels,
+					  birthdate,
+					  hire_date,
+					  address,
+					  city,
+					  state,
+					  country,
+					  postal_code,
+					  phone,
+					  fax,
+					  email)
+FROM 'D:\Projects\music store data\employee.csv'
+DELIMITER ','
+CSV HEADER;
