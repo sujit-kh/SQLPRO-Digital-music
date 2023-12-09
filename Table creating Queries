@@ -51,12 +51,13 @@ select * from media_type;
 ----------------------------------------------------------------
 create table genre(genre_id int8 PRIMARY KEY,
     name character varying);
-select * from album;
 
 COPY genre(genre_id, name)
 FROM 'D:\Projects\music store data\genre.csv'
 DELIMITER ','
 CSV HEADER;
+
+select * from genre;
 ----------------------------------------------------------------
 drop table track;
 create table track(track_id int8 PRIMARY KEY,
@@ -69,30 +70,26 @@ create table track(track_id int8 PRIMARY KEY,
 				   bytes int8,
 				   unit_price Numeric(4,2));
 				   
-select * from track;
-
-COPY track(track_id, name, album_id, media_type_id,
-		   genre_id, composer, milliseconds, bytes,
-		   unit_price)
+COPY track(track_id, name, album_id, media_type_id, genre_id, 
+ 	   composer, milliseconds, bytes, unit_price)
 FROM 'D:\Projects\music store data\track.csv'
 DELIMITER ','
 CSV HEADER;
+
+select * from track;
 ----------------------------------------------------------------
 create table invoice_line(invoice_line_id int8 Primary key,
 						 invoice_id int8,
 						 track_id int8,
 						 unit_price numeric(4,2),
 						 quantity int8);
-select * from invoice_line;
 
-COPY invoice_line(invoice_line_id,
-		    invoice_id,
-		   track_id,
-		   unit_price,
-		   quantity)
+COPY invoice_line(invoice_line_id, invoice_id, track_id, unit_price, quantity)
 FROM 'D:\Projects\music store data\invoice_line.csv'
 DELIMITER ','
 CSV HEADER;
+
+select * from invoice_line;
 ----------------------------------------------------------------
 DROP TABLE invoice;
 create table invoice(invoice_id int8 Primary key,
@@ -104,20 +101,14 @@ create table invoice(invoice_id int8 Primary key,
 					 billing_country character varying,
 					 billing_postal_code varchar,
 					 total Numeric(4,2));
-select * from invoice;
 
-COPY invoice(invoice_id,
-					 customer_id,
-					 invoice_date, 
-					 billing_address,
-					 billing_city,
-					 billing_state,
-					 billing_country,
-					 billing_postal_code,
-					 total )
+COPY invoice(invoice_id, customer_id, invoice_date, billing_address, billing_city,  billing_state, 
+	     billing_country, billing_postal_code, total )
 FROM 'D:\Projects\music store data\invoice.csv'
 DELIMITER ','
 CSV HEADER;
+
+select * from invoice;
 -------------------------------------------------------------------
 Drop table customer;
 create table customer(customer_id int8 Primary key,
@@ -134,24 +125,13 @@ create table customer(customer_id int8 Primary key,
 					  email varchar,
 					  support_rep_id int8);
 
-select * from customer;
-
-COPY customer(customer_id,
-					  first_name,
-					  last_name,
-					  company,
-					  address,
-					  city,
-					  state,
-					  country,
-					  postal_code,
-					  phone,
-					  fax,
-					  email,
-					  support_rep_id)
+COPY customer(customer_id, first_name, last_name, company, address, city, state,
+	      country,  postal_code, phone, fax, email, support_rep_id)
 FROM 'D:\Projects\music store data\customer.csv'
 DELIMITER ','
 CSV HEADER;
+
+select * from customer;
 -------------------------------------------------------------------
 drop table employee;
 create table employee(employee_id int8 primary key,
@@ -171,22 +151,9 @@ create table employee(employee_id int8 primary key,
 					  fax text,
 					  email varchar);
 
-COPY employee(employee_id,
-					  last_name,
-					  first_name,
-					  title,
-					  reports_to,
-			  		  levels,
-					  birthdate,
-					  hire_date,
-					  address,
-					  city,
-					  state,
-					  country,
-					  postal_code,
-					  phone,
-					  fax,
-					  email)
+COPY employee(employee_id, last_name, first_name, title, reports_to, levels, birthdate,
+	      hire_date, address, city, state,  country, postal_code, phone, fax, email)
 FROM 'D:\Projects\music store data\employee.csv'
 DELIMITER ','
 CSV HEADER;
+----------------------------------------------------------------------
